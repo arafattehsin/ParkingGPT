@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="Layer_2"
+   x="0px"
+   y="0px"
+   viewBox="0 0 80.3 80.3"
+   style="enable-background:new 0 0 80.3 80.3;"
+   xml:space="preserve"
+   sodipodi:docname="Master.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"><metadata
+   id="metadata19"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+   id="defs17" /><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1920"
+   inkscape:window-height="1009"
+   id="namedview15"
+   showgrid="false"
+   inkscape:zoom="3.7072471"
+   inkscape:cx="58.257445"
+   inkscape:cy="62.523747"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="g10" />
+<style
+   type="text/css"
+   id="style2">
+	.st0{fill:#EB6A5C;}
+	.st1{fill:#552F2F;}
+	.st2{fill:#2384AB;}
+	.st3{fill:#FFFFFF;}
+	.st4{fill:#0C2C48;}
+	.st5{fill:#F6A09C;}
+	.st6{fill:#61C3AF;}
+	.st7{fill:#2F4555;}
+	.st8{fill:#55AB99;}
+	.st9{fill:#ED6B5A;}
+	.st10{fill:#2484AD;}
+	.st11{fill:#FCA886;}
+	.st12{fill:#F1CC4B;}
+	.st13{fill:#6EB9E0;}
+	.st14{fill:#50646F;}
+	.st15{fill:#EDC84A;}
+	.st16{fill:#E7543A;}
+	.st17{fill:#F38D80;}
+	.st18{fill:#F2F2F2;}
+	.st19{fill:#81CAFF;}
+	.st20{clip-path:url(#SVGID_4_);fill:#55AB99;}
+	.st21{fill:#BABFC5;}
+	.st22{fill:#BBC2C7;}
+</style>
+<g
+   id="g12">
+	<circle
+   class="st9"
+   cx="40.200001"
+   cy="40.200001"
+   id="circle4"
+   r="40.200001"
+   style="fill:#1fedd8;fill-opacity:1" />
+	<circle
+   class="st4"
+   cx="40.2"
+   cy="40.2"
+   r="29.5"
+   id="circle6" />
+	<g
+   id="g10">
+		<path
+   class="st8"
+   d="m 30.534323,56.211731 h -5 v -31.9 h 32.247603 l -8.547603,20 h -18.7 z m 0,-16.9 h 13.7 l 5.860931,-10.460478 -19.560931,0.460478 z"
+   id="path8"
+   sodipodi:nodetypes="cccccccccccc"
+   style="fill:#f85b5e;fill-opacity:1" />
+	</g>
+</g>
+</svg>

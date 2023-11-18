@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="ParkingGPT.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ParkingGPT"
+    xmlns:views="clr-namespace:ParkingGPT.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="ParkingGPT">
+
+    <TabBar>
+        <TabBar.Style>
+            <Style TargetType="TabBar">
+                <Setter Property="Shell.TabBarBackgroundColor"
+            Value="#f85b5e" />
+                <Setter Property="Shell.TabBarTitleColor"
+            Value="#022c47" />
+                <Setter Property="Shell.TabBarUnselectedColor"
+            Value="AntiqueWhite" />
+            </Style>
+        </TabBar.Style>
+        <Tab Title="Home" Icon="dotnet_bot.svg"
+ >
+            <ShellContent Icon="dotnet_bot.svg" ContentTemplate="{DataTemplate views:MainPage}" />
+        </Tab>
+        <Tab Title="Settings"
+        >
+            <ShellContent Icon="dotnet_bot.svg" ContentTemplate="{DataTemplate views:SettingsPage}" />
+        </Tab>
+    </TabBar>
+
+
+    <!--<FlyoutItem FlyoutDisplayOptions="AsSingleItem">
+        <ShellContent 
+            Title="ParkingGPT"
+ContentTemplate="{DataTemplate views:MainPage}"
+Route="MainPage"
+            />
+    </FlyoutItem>
+
+    <FlyoutItem FlyoutDisplayOptions="AsSingleItem">
+        <ShellContent
+Title="Capture"
+ContentTemplate="{DataTemplate views:CapturePage}"
+Route="CapturePage" />
+    </FlyoutItem>
+
+    <FlyoutItem FlyoutDisplayOptions="AsSingleItem">
+        <ShellContent Title="Settings"
+ContentTemplate="{DataTemplate views:SettingsPage}" 
+ Route="SettingsPage"/>
+    </FlyoutItem>-->
+    <!--<Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid BackgroundColor="#f85b5e"
+              HeightRequest="100">
+                <Label Text="Animals"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>-->
+
+    <!--<ShellContent  Title="Home" 
+               ContentTemplate="{DataTemplate views:MainPage}">
+        <DataTemplate>
+            <Grid BackgroundColor="#f85b5e"
+  HeightRequest="100">
+                <Label Text="Animals"
+       TextColor="White"
+       FontAttributes="Bold"
+       HorizontalTextAlignment="Center"
+       VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </ShellContent>
+    <ShellContent Title="Settings"
+                  ContentTemplate="{DataTemplate views:SettingsPage}" />-->
+
+ 
+    
+    <!--<Shell.FlyoutFooterTemplate>
+        <DataTemplate>
+            <StackLayout>
+                <Label Text="Developed by"
+                       TextColor="GhostWhite"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+                <Label Text="Arafat Tehsin"
+                       TextColor="GhostWhite"
+                       HorizontalOptions="Center" />
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutFooterTemplate>-->
+
+</Shell>

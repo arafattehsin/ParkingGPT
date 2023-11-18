@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ParkingGPT.Views.SettingsPage"
+             xmlns:viewmodel="clr-namespace:ParkingGPT.ViewModel"
+             Background="#022c47"
+                          Shell.BackgroundColor="#f85b5e"
+Shell.NavBarIsVisible="True"
+Shell.NavBarHasShadow="True"
+             x:DataType="viewmodel:SettingsViewModel"
+             Title="{Binding Title}">
+    <VerticalStackLayout>
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <VerticalStackLayout Grid.Row="0">
+                <Label Text="Are you using Azure OpenAI instead of OpenAI?" TextColor="White" FontSize="16" FontAttributes="Bold" />
+                <Switch HorizontalOptions="Start" IsEnabled="False" />
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1">
+                <Label Text="Please enter your endpoint key" FontSize="16" TextColor="White" FontAttributes="Bold" />
+                <Entry Placeholder="Endpoint Key" 
+         Text="{Binding Settings.EndpointKey}" FontSize="16" IsPassword="True" InputTransparent="False" Keyboard="Plain" TextColor="#000000"/>
+            </VerticalStackLayout>
+            <Button Text="Save Changes"
+         Command="{Binding SavePreferencesCommand}"
+         CommandParameter="{Binding Settings}"
+         FontSize="18"                        
+         Background="#f85b5e"
+         TextColor="White"
+         FontAttributes="Bold"
+         Grid.Row="2"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

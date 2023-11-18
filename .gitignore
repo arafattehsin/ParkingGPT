@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/CanPark/.vs
+/CanPark/bin/Debug
+/CanPark/obj
+/ParkingGPT/.vs
+/ParkingGPT/bin/Debug
+/ParkingGPT/obj

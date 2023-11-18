@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ParkingGPT.Views.MainPage"
+             xmlns:viewmodel="clr-namespace:ParkingGPT.ViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+x:DataType="viewmodel:MainViewModel"
+Background="#022c47"
+Shell.BackgroundColor="#f85b5e"
+Shell.NavBarIsVisible="True"
+
+Shell.NavBarHasShadow="True"
+xmlns:model="clr-namespace:ParkingGPT.Model"
+             Title="ParkingGPT">
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>
