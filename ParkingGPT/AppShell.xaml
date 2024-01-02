@@ -9,6 +9,7 @@
     Title="ParkingGPT">
 
     <TabBar>
+        
         <TabBar.Style>
             <Style TargetType="TabBar">
                 <Setter Property="Shell.TabBarBackgroundColor"
@@ -19,13 +20,13 @@
             Value="AntiqueWhite" />
             </Style>
         </TabBar.Style>
-        <Tab Title="Home" Icon="dotnet_bot.svg"
+        <Tab Title="Home" Icon="home.svg"
  >
-            <ShellContent Icon="dotnet_bot.svg" ContentTemplate="{DataTemplate views:MainPage}" />
+            <ShellContent Icon="home.svg" ContentTemplate="{DataTemplate views:MainPage}" />
         </Tab>
-        <Tab Title="Settings"
+        <Tab Title="Settings" Icon="settings.svg"
         >
-            <ShellContent Icon="dotnet_bot.svg" ContentTemplate="{DataTemplate views:SettingsPage}" />
+            <ShellContent Icon="settings.svg" ContentTemplate="{DataTemplate views:SettingsPage}" />
         </Tab>
     </TabBar>
 
@@ -85,11 +86,11 @@ ContentTemplate="{DataTemplate views:SettingsPage}"
         <DataTemplate>
             <StackLayout>
                 <Label Text="Developed by"
-                       TextColor="GhostWhite"
+                       TextColor="Black"
                        FontAttributes="Bold"
                        HorizontalOptions="Center" />
                 <Label Text="Arafat Tehsin"
-                       TextColor="GhostWhite"
+                       TextColor="Black"
                        HorizontalOptions="Center" />
             </StackLayout>
         </DataTemplate>

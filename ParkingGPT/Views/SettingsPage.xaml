@@ -9,33 +9,41 @@ Shell.NavBarIsVisible="True"
 Shell.NavBarHasShadow="True"
              x:DataType="viewmodel:SettingsViewModel"
              Title="{Binding Title}">
-    <VerticalStackLayout>
-        <Grid Padding="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <VerticalStackLayout Grid.Row="0">
-                <Label Text="Are you using Azure OpenAI instead of OpenAI?" TextColor="White" FontSize="16" FontAttributes="Bold" />
-                <Switch HorizontalOptions="Start" IsEnabled="False" />
-            </VerticalStackLayout>
-            <VerticalStackLayout Grid.Row="1">
-                <Label Text="Please enter your endpoint key" FontSize="16" TextColor="White" FontAttributes="Bold" />
-                <Entry Placeholder="Endpoint Key" 
-         Text="{Binding Settings.EndpointKey}" FontSize="16" IsPassword="True" InputTransparent="False" Keyboard="Plain" TextColor="#000000"/>
-            </VerticalStackLayout>
-            <Button Text="Save Changes"
-         Command="{Binding SavePreferencesCommand}"
-         CommandParameter="{Binding Settings}"
-         FontSize="18"                        
-         Background="#f85b5e"
-         TextColor="White"
-         FontAttributes="Bold"
-         Grid.Row="2"/>
-        </Grid>
-    </VerticalStackLayout>
+    <Grid Grid.Row="0" Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <VerticalStackLayout Grid.Row="0">
+            <Label Text="Are you using Azure OpenAI instead of OpenAI?" TextColor="White" FontSize="16" FontAttributes="Bold" />
+            <Switch HorizontalOptions="Start" OnColor="Orange"  
+        BackgroundColor="#022c47" IsToggled="{Binding Settings.IsUseOpenAI}"
+        ThumbColor="White" />
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="1">
+            <Label Text="Please enter your endpoint key" FontSize="16" TextColor="White" FontAttributes="Bold" />
+            <Entry Placeholder="Endpoint Key" 
+ Text="{Binding Settings.EndpointKey}" FontSize="16" IsPassword="True" InputTransparent="False" Keyboard="Plain" TextColor="White"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout IsVisible="{Binding Settings.IsUseOpenAI, Converter={StaticResource InvertedBoolConverter}}" Grid.Row="2">
+            <Label Text="Please enter your endpoint URL" FontSize="16" TextColor="White" FontAttributes="Bold" />
+            <Entry Placeholder="Endpoint URL" Text="{Binding Settings.EndpointURL}" FontSize="16" InputTransparent="False" Keyboard="Plain" TextColor="White"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="3" IsVisible="{Binding Settings.IsUseOpenAI, Converter={StaticResource InvertedBoolConverter}}">
+            <Label Text="Please enter your model name" FontSize="16" TextColor="White" FontAttributes="Bold" />
+            <Entry Placeholder="For example, gpt-4-vision" Text="{Binding Settings.DeploymentModel}" FontSize="16" InputTransparent="False" Keyboard="Plain" TextColor="White"/>
+        </VerticalStackLayout>
+        <Button Text="Save Changes"
+ Command="{Binding SavePreferencesCommand}"
+ CommandParameter="{Binding Settings}"
+ FontSize="18"                        
+ Background="#f85b5e"
+ TextColor="White"
+ FontAttributes="Bold"
+ Grid.Row="4"/>
+    </Grid>
 </ContentPage>

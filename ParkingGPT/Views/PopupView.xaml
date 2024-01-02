@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ParkingGPT.Views.PopupView"
+xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:ParkingGPT.ViewModel"
+               x:DataType="viewmodel:MainViewModel"
+            >
+    <VerticalStackLayout>
+        <Label 
+            Text="{Binding Parking.Decision}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+     Text="{Binding Parking.Description}"
+     VerticalOptions="Center" 
+     HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</toolkit:Popup>

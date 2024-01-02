@@ -12,10 +12,18 @@ Shell.NavBarIsVisible="True"
 Shell.NavBarHasShadow="True"
 xmlns:model="clr-namespace:ParkingGPT.Model"
              Title="ParkingGPT">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <FlexLayout Grid.Row="{Binding ImageSource, Converter={StaticResource RowNumberConverter}}" Direction="{Binding ImageSource, Converter={StaticResource FlexDirectionConverter}}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+            <Button Margin="5" Text="📸 Capture " FontSize="15" Command="{Binding CapturePhotoCommand}" Background="#f85b5e" TextColor="White" FontAttributes="Bold"/>
+            <Button Margin="5" Text="📂 Pick " FontSize="15" Command="{Binding PickPhotoCommand}" Background="#f85b5e" TextColor="White" FontAttributes="Bold"/>
+        </FlexLayout>
+        <Image Source="{Binding ImageSource}" Grid.Row="1"/>
+
+    </Grid>
+
 </ContentPage>

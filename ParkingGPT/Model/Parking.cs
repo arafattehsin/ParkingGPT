@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace ParkingGPT.Model
 {
-    public partial class Settings : ObservableObject
+    public partial class Parking : ObservableObject
     {
         [ObservableProperty]
-        public bool isUseOpenAI;
+        public string description;
 
-        public string EndpointURL { get; set; }
-
-        public string EndpointKey { get; set; }
-
-        public string DeploymentModel { get; set; }
+        [ObservableProperty]
+        public bool decision;
     }
 }

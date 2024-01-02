@@ -2,6 +2,7 @@
 using ParkingGPT.ViewModel;
 using ParkingGPT.Views;
 using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui;
 
 namespace ParkingGPT
 {
@@ -12,6 +13,7 @@ namespace ParkingGPT
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -23,6 +25,7 @@ namespace ParkingGPT
 #endif
             // Services
             builder.Services.AddSingleton<SettingsService>();
+            builder.Services.AddSingleton<GPTVisionService>();
 
             // View Models
             builder.Services.AddSingleton<MainViewModel>();
