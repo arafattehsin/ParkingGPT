@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ParkingGPT"
              xmlns:converter="clr-namespace:ParkingGPT.Converters"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="ParkingGPT.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -14,6 +15,7 @@
             <converter:FlexDirectionConverter x:Key="FlexDirectionConverter"/>
             <converter:BoolToAnswerColorConverter x:Key="BoolToAnswerColorConverter"/>
             <converter:BoolToTextConverter x:Key="BoolToTextConverter"/>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
