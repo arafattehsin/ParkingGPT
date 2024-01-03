@@ -22,7 +22,8 @@ xmlns:model="clr-namespace:ParkingGPT.Model"
             <Button Margin="5" Text="📸 Capture " FontSize="15" Command="{Binding CapturePhotoCommand}" Background="#f85b5e" TextColor="White" FontAttributes="Bold"/>
             <Button Margin="5" Text="📂 Pick " FontSize="15" Command="{Binding PickPhotoCommand}" Background="#f85b5e" TextColor="White" FontAttributes="Bold"/>
         </FlexLayout>
-        <Image Source="{Binding ImageSource}" Grid.Row="1"/>
+        <Image Source="{Binding ImageSource}" MaximumHeightRequest="500" Grid.Row="1"/>
+        <ActivityIndicator IsVisible="true" Grid.Row="1" HeightRequest="100" Color="#f85b5e" IsRunning="{Binding IsBusy}" />
 
     </Grid>
 

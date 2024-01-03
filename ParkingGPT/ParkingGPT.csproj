@@ -55,6 +55,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\Bangers-Regular.ttf" />
 	  <None Remove="Resources\Images\home.svg" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>

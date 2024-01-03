@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ParkingGPT.Helpers;
 using ParkingGPT.Model;
 using ParkingGPT.Services;
+using ParkingGPT.Views;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System;
@@ -27,12 +29,20 @@ namespace ParkingGPT.ViewModel
 
         GPTVisionService visionService;
 
-        IPopupService popupService;
-
-        public MainViewModel(GPTVisionService gPTVisionService, IPopupService popupService)
+        public MainViewModel(GPTVisionService gPTVisionService)
         {
             visionService = gPTVisionService;
-            this.popupService = popupService;
+            
+        }
+
+        [RelayCommand]
+        void ShowPopup()
+        {
+            if (Parking != null)
+            {
+                var popup = new PopupView(this);
+                Shell.Current.CurrentPage.ShowPopup(popup);
+            }
         }
 
         [RelayCommand]
@@ -58,9 +68,9 @@ namespace ParkingGPT.ViewModel
 
                         var byteArrayImage = UtilityHelper.GetImageStreamAsBytes(sourceStream);
                         string base64image = Convert.ToBase64String(byteArrayImage);
-                        // Parking = await visionService.GetParkingResult(base64image);
+                        Parking = await visionService.GetParkingResult(base64image);
                         IsBusy = false;
-                        popupService.ShowPopup<MainViewModel>();
+                        ShowPopup();
                     }
                 }
                 catch (Exception ex)
@@ -80,12 +90,12 @@ namespace ParkingGPT.ViewModel
 
                 if (result != null)
                 {
-                    ImageSource = result.FullPath;
-
                     IsBusy = true;
+                    ImageSource = result.FullPath;
                     string base64image = UtilityHelper.GetBase64Image(ImageSource);
-                    // Parking = await visionService.GetParkingResult(base64image);
+                    Parking = await visionService.GetParkingResult(base64image);
                     IsBusy = false;
+                    ShowPopup();
                 }
 
             }

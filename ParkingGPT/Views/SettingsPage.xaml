@@ -21,7 +21,7 @@ Shell.NavBarHasShadow="True"
         <VerticalStackLayout Grid.Row="0">
             <Label Text="Are you using Azure OpenAI instead of OpenAI?" TextColor="White" FontSize="16" FontAttributes="Bold" />
             <Switch HorizontalOptions="Start" OnColor="Orange"  
-        BackgroundColor="#022c47" IsToggled="{Binding Settings.IsUseOpenAI}"
+        BackgroundColor="#022c47" IsToggled="{Binding Settings.IsUseOpenAI}" IsEnabled="False"
         ThumbColor="White" />
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Row="1">

@@ -1,5 +1,6 @@
 ﻿using Azure;
 using Azure.AI.OpenAI;
+using CommunityToolkit.Mvvm.ComponentModel;
 using ParkingGPT.Model;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ParkingGPT.Services
@@ -87,7 +89,7 @@ namespace ParkingGPT.Services
                           new
                           {
                               type = "text",
-                              text = "You are a helpful assistant that reads the parking signs. You need to make sure that you calculate time correctly and do not get confuse with increasing times as increasing numbers. For example, 12 PM falls under 9 to 5 PM."
+                              text = "You are a helpful assistant that reads the parking signs. You need to make sure that you calculate time correctly and do not get confuse with increasing times as increasing numbers. For example, 12 PM falls under 9 to 5 PM. You also need to ensure that the timings outside of the listed zone are also permitted as long as it is not a no parking area which has a different sign."
                           }
                       }
                     },
@@ -130,8 +132,10 @@ namespace ParkingGPT.Services
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseData = JsonSerializer.Deserialize<Parking>(await response.Content.ReadAsStringAsync());
-                    return responseData;
+                    var responseData = JsonSerializer.Deserialize<GPTVisionResponse>(await response.Content.ReadAsStringAsync());
+                    var parkingData = JsonSerializer.Deserialize<Parking>(responseData.choices[0].message.content);
+                    // Parking parking = new Parking() { Decision = parkingData.decision, Description = parkingData.description };
+                    return parkingData;
                 }
 
             }
