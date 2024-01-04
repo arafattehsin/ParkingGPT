@@ -45,7 +45,7 @@ The app is built using .NET MAUI and it is powered by both OpenAI and Azure Open
 
 You can contribute to this repo with issues and pull requests (PRs). Simply filing issues for problems you encounter is a great way to contribute. Contributing code is greatly appreciated.
 
-Special shoutout to [Simon Waight](https://github.com/sjwaight) for bringing up this [idea with me](https://twitter.com/simonwaight/status/1630787390393704448). Soon, you will be able to read a blog post on its background, failures and much more :)
+Special shoutout to [Simon Waight](https://github.com/sjwaight) for bringing up this [idea with me](https://twitter.com/simonwaight/status/1630787390393704448). Check out [my blog](https://arafattehsin.com/parkinggpt-your-ai-parking-copilot/) for all the details and motivation behind this.
 
 ## License
 

@@ -100,5 +100,9 @@
     <UseHardenedRuntime>true</UseHardenedRuntime>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+  </PropertyGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionParkingGPTHideInfoBar="True" XamarinHotReloadGenericExceptionInfoBarParkingGPTHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 </Project>
