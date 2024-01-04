@@ -19,7 +19,7 @@ The app is built using .NET MAUI and it is powered by both OpenAI and Azure Open
 
 **ParkingGPT** is a cross-platform app that uses the power of GPT 4 Turbo for Vision to help you decide whether you want to park or not. With ParkingGPT, you can easily identify parking signs and make informed decisions about where to park. This app has a feature to directly use your phone's camera or you can upload a picture of a parking sign. Whether you’re a driver looking for a convenient parking spot or a parking enforcement officer looking to enforce parking regulations, ParkingGPT is your AI parking copilot.
 
-![Home Page](assets/home.png) ![Pick a photo](assets/pick.png) ![Parking Result](assets/result.png)
+<img src="assets/home.png" alt="Home Page" width="200"/> <img src="assets/pick.png" alt="Pick a parking sign photo" width="200"/> <img src="assets/result.png" alt="Parking Result" width="200"/>
 
 ## In-progress features
 
