@@ -35,8 +35,6 @@ namespace ParkingGPT.ViewModel
             {
                 settingsService.SetSettingsToStorage(settings);
                 await Shell.Current.DisplayAlert("Success!", "Your changes have been saved.", "OK");
-                // await Shell.Current.GoToAsync(".."); Rather switch it to the home tab
-
             }
             catch (Exception ex)
             {
