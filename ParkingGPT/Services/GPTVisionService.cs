@@ -134,7 +134,6 @@ namespace ParkingGPT.Services
                 {
                     var responseData = JsonSerializer.Deserialize<GPTVisionResponse>(await response.Content.ReadAsStringAsync());
                     var parkingData = JsonSerializer.Deserialize<Parking>(responseData.choices[0].message.content);
-                    // Parking parking = new Parking() { Decision = parkingData.decision, Description = parkingData.description };
                     return parkingData;
                 }
 
