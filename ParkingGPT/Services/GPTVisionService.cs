@@ -89,7 +89,7 @@ namespace ParkingGPT.Services
                           new
                           {
                               type = "text",
-                              text = "You are a helpful assistant that reads the parking signs. You need to make sure that you calculate time correctly and do not get confuse with increasing times as increasing numbers. For example, 12 PM falls under 9 to 5 PM. You also need to ensure that the timings outside of the listed zone are also permitted as long as it is not a no parking area which has a different sign."
+                              text = "You are a helpful assistant that reads the parking signs. You need to make sure that you calculate time correctly and do not get confuse with increasing times as increasing numbers. For example, 12 PM falls under 9 to 5 PM. You also need to ensure that the timings outside of the listed zone are also permitted as long as it is not a no parking area which has a different sign. Always include the current time provided to you to give a proof that you did the job right."
                           }
                       }
                     },
