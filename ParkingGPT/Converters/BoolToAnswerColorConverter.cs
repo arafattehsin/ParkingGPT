@@ -11,7 +11,7 @@ namespace ParkingGPT.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool isTrue = (bool)value;
+            bool isTrue = System.Convert.ToBoolean(value); 
 
             if(isTrue)
             {

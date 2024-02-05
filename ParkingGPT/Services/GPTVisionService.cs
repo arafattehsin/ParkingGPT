@@ -89,7 +89,9 @@ namespace ParkingGPT.Services
                           new
                           {
                               type = "text",
-                              text = "You are a helpful assistant that reads the parking signs. You need to make sure that you calculate time correctly and do not get confuse with increasing times as increasing numbers. For example, 12 PM falls under 9 to 5 PM. You also need to ensure that the timings outside of the listed zone are also permitted as long as it is not a no parking area which has a different sign. Always include the current time provided to you to give a proof that you did the job right."
+                              text = "You are a helpful assistant that reads the parking signs. You need to make sure that you calculate time correctly and do not get confuse with increasing times as increasing numbers. For example, 12 PM falls under 9 to 5 PM. You also need to ensure that the timings outside of the listed zone are also permitted as long as it is not a no parking area which has a different sign. " +
+                              "Always include the current time provided to you to give a proof that you did the job right." +
+                              "If there's a no stopping sign with school days then make sure you only restrict it during the specified hours."
                           }
                       }
                     },
@@ -101,7 +103,7 @@ namespace ParkingGPT.Services
                             new
                             {
                                 type = "text",
-                                text = @$"Can I park now? The date and time is {DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()}. Just give me an answer as true if it is a yes or false if it is a no. In addition to this, also include the description as why you have chosen this decision.
+                                text = @$"The date and time is {DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()}. Can I park now? In the below JSON format, provide a 'true' answer if parking is allowed, and 'false' if it is not. Additionally, explain your decision based on the sign information.
                                 #########
                                 FORMAT 
                                 #########
@@ -133,12 +135,12 @@ namespace ParkingGPT.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var responseData = JsonSerializer.Deserialize<GPTVisionResponse>(await response.Content.ReadAsStringAsync());
-                    var parkingData = JsonSerializer.Deserialize<Parking>(responseData.choices[0].message.content);
+                    var parkingData = JsonSerializer.Deserialize<Parking>(responseData.choices[0].message.content.Replace("```json", "").Replace("```", "").Trim());
                     return parkingData;
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }

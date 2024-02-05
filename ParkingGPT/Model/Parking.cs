@@ -16,6 +16,6 @@ namespace ParkingGPT.Model
 
         [property: JsonPropertyName("decision")]
         [ObservableProperty]
-        public bool decision;
+        public string decision;
     }
 }

@@ -16,6 +16,8 @@ namespace ParkingGPT.Services
             Settings settings = new();
             settings.EndpointKey = Preferences.Default.Get(nameof(settings.EndpointKey), string.Empty);
             settings.IsUseOpenAI = Preferences.Default.Get(nameof(settings.IsUseOpenAI), false);
+            settings.EndpointURL = Preferences.Default.Get(nameof(settings.EndpointURL), string.Empty);
+            settings.DeploymentModel = Preferences.Default.Get(nameof(settings.DeploymentModel), string.Empty);
             return settings;
         }
 
@@ -27,6 +29,8 @@ namespace ParkingGPT.Services
         public bool SetSettingsToStorage(Settings settings)
         {
             Preferences.Default.Set(nameof(settings.EndpointKey), settings.EndpointKey);
+            Preferences.Default.Set(nameof(settings.EndpointURL), settings.EndpointURL);
+            Preferences.Default.Set(nameof(settings.DeploymentModel), settings.DeploymentModel);
             Preferences.Default.Set(nameof(settings.IsUseOpenAI), settings.IsUseOpenAI);
             return true;
         }
