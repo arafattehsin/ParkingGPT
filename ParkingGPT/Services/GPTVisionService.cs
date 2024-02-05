@@ -140,7 +140,7 @@ namespace ParkingGPT.Services
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
