@@ -79,7 +79,7 @@ namespace ParkingGPT.Services
                 var payload = new
                 {
 
-                    model = "gpt-4-vision-preview",
+                    model = "gpt-4o",
                     messages = new[]
                     {
                     new {
@@ -103,13 +103,13 @@ namespace ParkingGPT.Services
                             new
                             {
                                 type = "text",
-                                text = @$"The date and time is {DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()}. Can I park now? In the below JSON format, provide a 'true' answer if parking is allowed, and 'false' if it is not. Additionally, explain your decision based on the sign information.
+                                text = @$"Can I park now? The date and time is {DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()}. Just give me an answer as true if it is a yes or false if it is a no. In addition to this, also include the description as why you have chosen this decision. The below format should not contain any delimeters such as ```json```, it should also contain the specified format.
                                 #########
                                 FORMAT 
                                 #########
                                 {{
-                                   decision:
-                                   description:
+                                   ""decision"":,
+                                   ""description"":""
                                 }}"
                             },
                             new
@@ -135,7 +135,7 @@ namespace ParkingGPT.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var responseData = JsonSerializer.Deserialize<GPTVisionResponse>(await response.Content.ReadAsStringAsync());
-                    var parkingData = JsonSerializer.Deserialize<Parking>(responseData.choices[0].message.content.Replace("```json", "").Replace("```", "").Trim());
+                    var parkingData = JsonSerializer.Deserialize<Parking>(responseData.choices[0].message.content);
                     return parkingData;
                 }
 
@@ -157,6 +157,8 @@ namespace ParkingGPT.Services
         public string model { get; set; }
         public Usage usage { get; set; }
         public Choice[] choices { get; set; }
+
+        public string system_fingerprint { get; set; }
     }
 
     public class Usage
