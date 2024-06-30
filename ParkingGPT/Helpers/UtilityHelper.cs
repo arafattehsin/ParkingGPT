@@ -43,5 +43,13 @@ namespace ParkingGPT.Helpers
             return Convert.ToBase64String(byteArrayImage);
         }
 
+        public static byte[] GetByteArrayofImage(string path)
+        {
+            var fileInfo = new FileInfo(path);
+            using Stream sourceStream = fileInfo.OpenRead();
+            var byteArrayImage = UtilityHelper.GetImageStreamAsBytes(sourceStream);
+            return byteArrayImage;
+        }
+
     }
 }

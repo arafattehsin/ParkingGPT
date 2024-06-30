@@ -67,8 +67,8 @@ namespace ParkingGPT.ViewModel
                         await sourceStream.CopyToAsync(localFileStream);
 
                         var byteArrayImage = UtilityHelper.GetImageStreamAsBytes(sourceStream);
-                        string base64image = Convert.ToBase64String(byteArrayImage);
-                        Parking = await visionService.GetParkingResult(base64image);
+                        // string base64image = Convert.ToBase64String(byteArrayImage);
+                        Parking = await visionService.GetParkingResult(byteArrayImage);
                         IsBusy = false;
                         ShowPopup();
                     }
@@ -91,9 +91,8 @@ namespace ParkingGPT.ViewModel
                 if (result != null)
                 {
                     IsBusy = true;
-                    ImageSource = result.FullPath;
-                    string base64image = UtilityHelper.GetBase64Image(ImageSource);
-                    Parking = await visionService.GetParkingResult(base64image);
+                    byte[] arrayImage = UtilityHelper.GetByteArrayofImage(result.FullPath);
+                    Parking = await visionService.GetParkingResult(arrayImage);
                     IsBusy = false;
                     ShowPopup();
                 }

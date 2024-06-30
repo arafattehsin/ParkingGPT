@@ -1,7 +1,9 @@
 ﻿using Azure;
 using Azure.AI.OpenAI;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.SemanticKernel;
 using ParkingGPT.Model;
+using Kernel = Microsoft.SemanticKernel.Kernel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,135 +12,74 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Azure.Core;
+using Microsoft.SemanticKernel.ChatCompletion;
 
 namespace ParkingGPT.Services
 {
     public class GPTVisionService
     {
+        Kernel kernel;
         SettingsService settingsService;
 
         public GPTVisionService(SettingsService settingsService)
         {
             this.settingsService = settingsService;
+            InitializeKernel();
         }
 
-        // Commented due to the lack of support for more than 64 KB images 
-        // https://github.com/Azure/azure-sdk-for-net/issues/40855
-        //public async Task<Parking> GetParkingResult(string base64image)
-        //{
-        //    try
-        //    {
-        //        var settings = this.settingsService.GetSettingsFromStorage();
-        //        OpenAIClient client = settings.IsUseOpenAI
-        //                                ? new OpenAIClient(settings.EndpointKey)
-        //                                : new OpenAIClient(
-        //                                    new Uri(settings.EndpointURL),
-        //                                    new AzureKeyCredential(settings.EndpointKey));
+        public void InitializeKernel()
+        {
+            var settings = this.settingsService.GetSettingsFromStorage();
 
-        //        string rawImageUri = $"data:image/jpeg;base64,{base64image}";
-        //        ChatCompletionsOptions chatCompletionsOptions = new()
-        //        {
-        //            DeploymentName = settings.DeploymentModel,
-        //            Messages =
-        //            {
-        //                new ChatRequestSystemMessage("You are a helpful assistant that reads the parking signs. All you have to give is the answer as true or false."),
-        //                new ChatRequestUserMessage(
-        //    new ChatMessageTextContentItem($"Can I park now? The date and time is {DateTime.Now}. Just give me an answer as true if it is a yes or false if it is a no."),
-        //    new ChatMessageImageContentItem(new Uri(rawImageUri))),
-        //            },
-        //            Temperature = 0,
-        //            MaxTokens = 300,
-        //            // ResponseFormat = ChatCompletionsResponseFormat.JsonObject - This does not work with Vision
-        //        };
+            //Create Kernel builder
+            var builder = Kernel.CreateBuilder();
 
-        //        Response<ChatCompletions> chatResponse = await client.GetChatCompletionsAsync(chatCompletionsOptions);
-        //        ChatChoice choice = chatResponse.Value.Choices[0];
-        //        if (choice.FinishDetails is StopFinishDetails stopDetails)
-        //        {
-        //            return JsonSerializer.Deserialize<Parking>(choice.Message.Content);
-        //        }
+            if (!settings.IsUseOpenAI)
+            {
+                builder.AddAzureOpenAIChatCompletion(settings.DeploymentModel, settings.EndpointURL, settings.EndpointKey);
+            }
+            else
+            {
+                builder.AddOpenAIChatCompletion("gpt-4o", settings.EndpointKey);
+            }
 
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        throw ex;
-        //    }
+            // Build the kernel
+            kernel = builder.Build();
+        }
 
-        //    return null;
-        //}
-
-        public async Task<Parking> GetParkingResult(string base64image)
+        public async Task<Parking> GetParkingResult(byte[] byteImage)
         {
             try
             {
 
-                var settings = this.settingsService.GetSettingsFromStorage();
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", settings.EndpointKey);
+                var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
+                var chatHistory = new ChatHistory("You are a helpful assistant that reads the parking signs. " +
+                    "You need to make sure that you calculate time correctly and " +
+                    "do not get confuse with increasing times as increasing numbers. " +
+                    "For example, 12 PM falls under 9 to 5 PM. You also need to ensure that the timings outside of the listed zone are also permitted as long as it is not a no parking area which has a different sign. \" +\r\n                              \"Always include the current time provided to you to give a proof that you did the job right.\" +\r\n                              \"If there's a no stopping sign with school days then make sure you only restrict it during the specified hours.\"");
 
-                var payload = new
-                {
-
-                    model = "gpt-4o",
-                    messages = new[]
-                    {
-                    new {
-                      role = "system",
-                      content = new object[]
-                      {
-                          new
-                          {
-                              type = "text",
-                              text = "You are a helpful assistant that reads the parking signs. You need to make sure that you calculate time correctly and do not get confuse with increasing times as increasing numbers. For example, 12 PM falls under 9 to 5 PM. You also need to ensure that the timings outside of the listed zone are also permitted as long as it is not a no parking area which has a different sign. " +
-                              "Always include the current time provided to you to give a proof that you did the job right." +
-                              "If there's a no stopping sign with school days then make sure you only restrict it during the specified hours."
-                          }
-                      }
-                    },
-                    new
-                    {
-                        role = "user",
-                        content = new object[]
-                        {
-                            new
-                            {
-                                type = "text",
-                                text = @$"Can I park now? The date and time is {DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()}. Just give me an answer as true if it is a yes or false if it is a no. In addition to this, also include the description as why you have chosen this decision. The below format should not contain any delimeters such as ```json```, it should also contain the specified format.
+                chatHistory.AddUserMessage(
+                [
+                    new TextContent(@$"Can I park now? The date and time is {DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()}. Just give me an answer as true if it is a yes or false if it is a no. In addition to this, also include the description as why you have chosen this decision. The below format should not contain any delimeters such as ```json```, it should also contain the specified format.
                                 #########
                                 FORMAT 
                                 #########
                                 {{
                                    ""decision"":,
                                    ""description"":""
-                                }}"
-                            },
-                            new
-                            {
-                                type = "image_url",
-                                image_url = new
-                                {
-                                    url = $"data:image/jpeg;base64,{base64image}"
-                                }
-                            }
-                        }
-                    }
-                },
-                    temperature = 0,
-                    max_tokens = 300
-                };
+                                }}"),
+                    new ImageContent(byteImage, "image/jpg")
+                ]);
 
-                var payloadJson = System.Text.Json.JsonSerializer.Serialize(payload);
-                var content = new StringContent(payloadJson, Encoding.UTF8, "application/json");
+                var response = await chatCompletionService.GetChatMessageContentAsync(chatHistory);
+                ChatResponseMessage chatResponse = response.InnerContent as ChatResponseMessage;
 
-                var response = await httpClient.PostAsync("https://api.openai.com/v1/chat/completions", content);
-
-                if (response.IsSuccessStatusCode)
+                if(chatResponse.Content is not null)
                 {
-                    var responseData = JsonSerializer.Deserialize<GPTVisionResponse>(await response.Content.ReadAsStringAsync());
-                    var parkingData = JsonSerializer.Deserialize<Parking>(responseData.choices[0].message.content);
+                    var parkingData = JsonSerializer.Deserialize<Parking>(chatResponse.Content);
                     return parkingData;
                 }
-
             }
             catch (Exception)
             {
@@ -147,37 +88,5 @@ namespace ParkingGPT.Services
 
             return null;
         }
-    }
-
-    public class GPTVisionResponse
-    {
-        public string id { get; set; }
-        public string _object { get; set; }
-        public int created { get; set; }
-        public string model { get; set; }
-        public Usage usage { get; set; }
-        public Choice[] choices { get; set; }
-
-        public string system_fingerprint { get; set; }
-    }
-
-    public class Usage
-    {
-        public int prompt_tokens { get; set; }
-        public int completion_tokens { get; set; }
-        public int total_tokens { get; set; }
-    }
-
-    public class Choice
-    {
-        public Message message { get; set; }
-        public string finish_reason { get; set; }
-        public int index { get; set; }
-    }
-
-    public class Message
-    {
-        public string role { get; set; }
-        public string content { get; set; }
     }
 }

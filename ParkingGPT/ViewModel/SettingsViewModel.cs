@@ -16,14 +16,16 @@ namespace ParkingGPT.ViewModel
     public partial class SettingsViewModel : BaseViewModel
     {
         SettingsService settingsService;
+        GPTVisionService gptVisionService;
 
         [ObservableProperty]
         Settings settings;
 
-        public SettingsViewModel(SettingsService settingsService)
+        public SettingsViewModel(SettingsService settingsService, GPTVisionService gptVisionService)
         {
             Title = "Settings";
             this.settingsService = settingsService;
+            this.gptVisionService = gptVisionService;
             Settings = this.settingsService.GetSettingsFromStorage();
         }
 
@@ -34,6 +36,7 @@ namespace ParkingGPT.ViewModel
             try
             {
                 settingsService.SetSettingsToStorage(settings);
+                gptVisionService.InitializeKernel();
                 await Shell.Current.DisplayAlert("Success!", "Your changes have been saved.", "OK");
             }
             catch (Exception ex)
