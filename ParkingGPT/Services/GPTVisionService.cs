@@ -41,7 +41,7 @@ namespace ParkingGPT.Services
             }
             else
             {
-                builder.AddOpenAIChatCompletion("gpt-4o", settings.EndpointKey);
+                builder.AddOpenAIChatCompletion("gpt-4o-mini", settings.EndpointKey);
             }
 
             // Build the kernel
