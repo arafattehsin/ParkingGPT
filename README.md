@@ -2,11 +2,9 @@
 
  ![Static Badge](https://img.shields.io/badge/mvp_phase-completed-green?labelColor=blue) ![Static Badge](https://img.shields.io/badge/documentation_status-in_progress-yellow?labelColor=pink)  ![Static Badge](https://img.shields.io/badge/tests-not_started-brown?labelColor=red)
 
-[ParkingGPT](https://github.com/arafattehsin/ParkingGPT) is a cross-platform app that enables you to decide whether you want to park or not, all using the power of Vision AI & LLM. 
+[ParkingGPT](https://github.com/arafattehsin/ParkingGPT) is a cross-platform app that enables you to decide whether you want to park or not, all using the power of GPT-4o (Vision and Text. _Speech coming soon_). 
 
-The app is built using .NET MAUI and it is powered by both OpenAI and Azure OpenAI. 
-
-> ⚠️ Azure OpenAI SDK for .NET has [an issue](https://github.com/Azure/azure-sdk-for-net/issues/40855) going-on to support more than 64 KB images for GPT-4 for Vision. Therefore, it is only going to work with OpenAI API for now. 
+The app is built using .NET MAUI and it is powered by both OpenAI and Azure OpenAI Service. 
 
   ## Getting Started ##
 
@@ -17,7 +15,7 @@ The app is built using .NET MAUI and it is powered by both OpenAI and Azure Open
 
 ## Overview
 
-**ParkingGPT** is a cross-platform app that uses the power of GPT 4 Turbo for Vision to help you decide whether you want to park or not. With ParkingGPT, you can easily identify parking signs and make informed decisions about where to park. This app has a feature to directly use your phone's camera or you can upload a picture of a parking sign. Whether you’re a driver looking for a convenient parking spot or a parking enforcement officer looking to enforce parking regulations, ParkingGPT is your AI parking copilot.
+**ParkingGPT** is a cross-platform app that uses the power of GPT-4o (multimodal and multilanguage) to help you decide whether you want to park or not. With ParkingGPT, you can easily identify parking signs and make informed decisions about where to park. This app has a feature to directly use your phone's camera or you can upload a picture of a parking sign. Whether you’re a driver looking for a convenient parking spot or a parking enforcement officer looking to enforce parking regulations, ParkingGPT is your AI parking copilot.
 
 <img src="assets/home.png" alt="Home Page" width="200"/> <img src="assets/pick.png" alt="Pick a parking sign photo" width="200"/> <img src="assets/result.png" alt="Parking Result" width="200"/>
 
