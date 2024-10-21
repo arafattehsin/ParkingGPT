@@ -6,8 +6,6 @@ using ParkingGPT.Helpers;
 using ParkingGPT.Model;
 using ParkingGPT.Services;
 using ParkingGPT.Views;
-using Plugin.Media;
-using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
