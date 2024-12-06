@@ -25,6 +25,12 @@ namespace ParkingGPT.Services
         {
             var settings = this.settingsService.GetSettingsFromStorage();
 
+            // Check if EndpointKey is empty
+            if (string.IsNullOrEmpty(settings.EndpointKey))
+            {
+                return; 
+            }
+
             //Create Kernel builder
             var builder = Kernel.CreateBuilder();
 
