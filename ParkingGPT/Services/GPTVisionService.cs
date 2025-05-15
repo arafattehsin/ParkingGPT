@@ -6,7 +6,7 @@ using Kernel = Microsoft.SemanticKernel.Kernel;
 using System.Text.Json;
 using Microsoft.SemanticKernel.ChatCompletion;
 using OpenAI.Chat;
-using Microsoft.SemanticKernel.Connectors.OpenAI;
+using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
 
 namespace ParkingGPT.Services
 {
@@ -51,37 +51,47 @@ namespace ParkingGPT.Services
         {
             try
             {
-
-                var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
+                var settings = this.settingsService.GetSettingsFromStorage();
+                var chatCompletionService = new AzureOpenAIChatCompletionService(settings.DeploymentModel, settings.EndpointURL, settings.EndpointKey);
                 var chatHistory = new ChatHistory("You are a helpful assistant that reads the parking signs. " +
-                    "You need to make sure that you calculate time correctly and " +
-                    "do not get confuse with increasing times as increasing numbers. " +
-                    "For example, 12 PM falls under 9 to 5 PM. You also need to ensure that the timings outside of the listed zone are also permitted as long as it is not a no parking area which has a different sign. \" +\r\n                              \"Always include the current time provided to you to give a proof that you did the job right.\" +\r\n                              \"If there's a no stopping sign with school days then make sure you only restrict it during the specified hours.\"");
+                    "You need to make sure that you calculate time correctly and do not get confuse with increasing times as increasing numbers. For example, 12 PM falls under 9 to 5 PM.\n" +
+                    "You also need to ensure that the timings outside of the listed zone are also permitted as long as it is not a no parking area which has a different sign.\n" +
+                    "Always include the current time provided to you to give a proof that you did the job right.\n" +
+                    "If there is no stopping sign with school days then make sure you only restrict it during the specified hours.\n" +
+                    "If there are multiple parking signs provided to you where one may permit you while the other one may not then you need to give.\n" +
+                    "You need to provide yes, no or warning in decision response.");
 
                 ChatResponseFormat chatResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
                 jsonSchemaFormatName: "parking_decision",
                 jsonSchema: BinaryData.FromString("""
                     {
-                        "type": "object",
-                        "properties": {
-                            "decision": { "type": "boolean" },
-                            "description": { "type": "string" }
+                      "type": "object",
+                      "properties": {
+                        "decision": {
+                          "type": "string",
+                          "enum": ["yes", "no", "warning"],
+                          "description": "The assistant's decision on whether parking is allowed ('yes'), not allowed ('no'), or requires caution ('warning')."
                         },
-                        "required": ["decision", "description"],
-                        "additionalProperties": false
+                        "description": {
+                          "type": "string",
+                          "description": "A detailed explanation supporting the decision, including any relevant time calculations and considerations."
+                        }
+                      },
+                      "required": ["decision", "description"],
+                      "additionalProperties": false
                     }
                     """),
                 jsonSchemaIsStrict: true);
 
                 // Specify response format by setting ChatResponseFormat object in prompt execution settings.
-                var executionSettings = new OpenAIPromptExecutionSettings
+                var executionSettings = new Microsoft.SemanticKernel.Connectors.OpenAI.OpenAIPromptExecutionSettings
                 {
-                    ResponseFormat = chatResponseFormat 
+                    ResponseFormat = chatResponseFormat
                 };
 
                 chatHistory.AddUserMessage(
                 [
-                    new TextContent(@$"Can I park now? The date and time is {DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()}. Just give me an answer as true if it is a yes or false if it is a no. In addition to this, also include the description as why you have chosen this decision"),
+                    new TextContent(@$"Can I park now? The date and time is {DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()}. Just give me the right answer as yes, no or warning. In addition to this, also include the description as why you have chosen this decision"),
                     new ImageContent(byteImage, "image/jpg")
                 ]);
 
@@ -93,9 +103,9 @@ namespace ParkingGPT.Services
                     return parkingData;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception(ex.Message);
             }
 
             return null;

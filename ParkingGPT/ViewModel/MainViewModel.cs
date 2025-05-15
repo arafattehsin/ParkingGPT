@@ -89,6 +89,7 @@ namespace ParkingGPT.ViewModel
                 if (result != null)
                 {
                     IsBusy = true;
+                    ImageSource = result.FullPath;
                     byte[] arrayImage = UtilityHelper.GetByteArrayofImage(result.FullPath);
                     Parking = await visionService.GetParkingResult(arrayImage);
                     IsBusy = false;

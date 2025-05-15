@@ -11,15 +11,23 @@ namespace ParkingGPT.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool isTrue = System.Convert.ToBoolean(value); 
+            var decision = System.Convert.ToString(value);
 
-            if(isTrue)
+            if(decision.Equals("yes", StringComparison.OrdinalIgnoreCase))
             {
-                return Color.FromArgb("#008000");
+                return Color.FromArgb("#008000"); // Green
+            }
+            else if (decision.Equals("no", StringComparison.OrdinalIgnoreCase))
+            {
+                return Color.FromArgb("#800000"); // Maroon
+            }
+            else if (decision.Equals("warning", StringComparison.OrdinalIgnoreCase))
+            {
+                return Color.FromArgb("#FFD600"); // Yellow (bright, visible)
             }
             else
             {
-                return Color.FromArgb("#800000");
+                return Colors.Gray; // Fallback color
             }
         }
 
@@ -28,6 +36,4 @@ namespace ParkingGPT.Converters
             throw new NotImplementedException();
         }
     }
-
-   
 }
