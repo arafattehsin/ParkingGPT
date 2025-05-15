@@ -1,4 +1,4 @@
-# ParkingGPT - Your AI Parking Copilot
+# ParkingGPT - Your AI Parking Agent
 
  ![Static Badge](https://img.shields.io/badge/mvp_phase-completed-green?labelColor=blue) ![Static Badge](https://img.shields.io/badge/documentation_status-in_progress-yellow?labelColor=pink)  ![Static Badge](https://img.shields.io/badge/tests-not_started-brown?labelColor=red)
 
